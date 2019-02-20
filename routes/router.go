@@ -14,6 +14,9 @@ func InitRoutes() *mux.Router {
 }
 
 func setRoutes(routes *mux.Router) *mux.Router {
+	routes.HandleFunc("/logs-group-integracao", controller.FindLogsGroupIntegracao).Methods("GET")
+	routes.HandleFunc("/logs-group-filial", controller.FindLogsGroupFilial).Methods("GET")
+	routes.HandleFunc("/logs-group-filial", controller.FindLogsGroupFilial).Methods("GET")
 	routes.HandleFunc("/logs", controller.AllLogsEndPoint).Methods("GET")
 	routes.HandleFunc("/logs", controller.CreateLogEndPoint).Methods("POST")
 	routes.HandleFunc("/logs", controller.UpdateLogEndPoint).Methods("PUT")

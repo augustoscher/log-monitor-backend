@@ -21,6 +21,26 @@ func AllLogsEndPoint(w http.ResponseWriter, r *http.Request) {
 	respondWithJSON(w, http.StatusOK, logs)
 }
 
+//FindLogsGroupIntegracao return todos agrupando por codigo integracao
+func FindLogsGroupIntegracao(w http.ResponseWriter, r *http.Request) {
+	logs, err := logDAO.FindGroupIntegracao()
+	if err != nil {
+		respondWithError(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+	respondWithJSON(w, http.StatusOK, logs)
+}
+
+//FindLogsGroupFilial return todos agrupado por filial e tipo
+func FindLogsGroupFilial(w http.ResponseWriter, r *http.Request) {
+	logs, err := logDAO.FindGroupFilialTipo()
+	if err != nil {
+		respondWithError(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+	respondWithJSON(w, http.StatusOK, logs)
+}
+
 //FindLogEndpoint find a filial
 func FindLogEndpoint(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)

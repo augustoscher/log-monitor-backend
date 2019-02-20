@@ -2,7 +2,7 @@ package model
 
 //LogMessage representa uma log
 type LogMessage struct {
-	tableName            struct{} `sql:"logmessage"`
+	tableName            struct{} `sql:"logmessage" pg:",discard_unknown_columns"`
 	ID                   string   `sql:"id" json:"id"`
 	CodigoFilial         string   `sql:"codigo_filial" json:"codigo_filial"`
 	NomeFilial           string   `sql:"nome_filial" json:"nome_filial"`
