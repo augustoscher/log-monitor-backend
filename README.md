@@ -18,7 +18,7 @@ Serão listados os containers da seguinte forma:
 |CONTAINER ID | IMAGE | COMMAND | CREATED | STATUS | PORTS | NAMES |
 |-------------|-------|---------|---------|--------|-------|-------|
 |218c3fa8c2ed|postgres:9.6|"docker-entrypoint.s…"|About an hour ago|Up About an hour| 0.0.0.0:5433->5432/tcp|logs-monitor-docker-postgres_db_1
-|b0fcfa30606a|golang:1.11.5|"bash -c 'cd /usr/lo…"|About an hour ago|Up About an hour|0.0.0.0:3000->3000/tcp|logs-monitor-docker-postgres_db_1
+|b0fcfa30606a|golang:1.11.5|"bash -c 'cd /usr/lo…"|About an hour ago|Up About an hour|0.0.0.0:3000->3000/tcp|logs-monitor-docker-postgres_backend_1
 
 a) Container de banco de dados: mongodb  
 Para testar se o banco está online: http://localhost:5433  
