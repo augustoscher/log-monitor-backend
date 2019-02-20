@@ -1,0 +1,31 @@
+version: '3'
+volumes:
+  dados:
+services:
+  db:
+    image: postgres:9.6
+    volumes:
+      # Volume dos dados
+      - dados:/var/lib/postgresql/data
+      # Scripts
+      - ./scripts:/scripts
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - 5433:5432
+  backend:
+    image: golang:1.11.5
+    volumes:
+      - .:/usr/local/go/src/bitbucket.org/augustoscher/logs-monitor-docker-postgres
+    ports:
+      - 3000:3000
+    command: bash -c "cd /usr/local/go/src/bitbucket.org/augustoscher/logs-monitor-docker-postgres && go get && go run app.go"
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_NAME=log_monitor
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASS=postgres
+
+      
