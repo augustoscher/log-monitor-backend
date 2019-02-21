@@ -1,8 +1,6 @@
 package dao
 
 import (
-	"log"
-
 	"bitbucket.org/augustoscher/logs-monitor-docker-postgres/model"
 )
 
@@ -27,9 +25,6 @@ func (m *LogDAO) FindGroupIntegracao() ([]model.LogGroupIntegracao, error) {
 		Group("codigo_integracao", "nome_integracao").
 		OrderExpr("qtd DESC").
 		Select(&logsMessage)
-	if err != nil {
-		log.Printf("deu zica: %+v", err.Error())
-	}
 	return logsMessage, err
 }
 
@@ -46,9 +41,6 @@ func (m *LogDAO) FindGroupFilialTipo() ([]model.LogGroupFilialTipo, error) {
 		Group("codigo_integracao", "nome_integracao", "codigo_filial", "nome_filial", "tipo_notificacao").
 		OrderExpr("qtd DESC").
 		Select(&logsMessage)
-	if err != nil {
-		log.Printf("deu zica: %+v", err.Error())
-	}
 	return logsMessage, err
 }
 

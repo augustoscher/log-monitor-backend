@@ -22,6 +22,13 @@ Serão listados os containers da seguinte forma:
 
 a) Container de banco de dados: postgreSQL  
 Para testar se o banco está online: http://localhost:5433  
+Para verificar se o schema foi criado corretamente, executar dentro da pasta do projeto: docker-compose exec db psql -U postgres -f /scripts/check.sql
+É possível criar uma conexão através do PGAdmin, por que existe um mapeamento da porta interna do container para a porta externa (5433).
+Para conectar no banco via pgAdmin:
+- Via PGAdmin, criar um novo Server.
+- Dar um nome ao server. Pode ser: 'logs-monitor-docker-postgres-server'.
+- Na aba Connections, informar em Host: 'localhost' e a porta '5433'.
+- Pronto. Você terá acesso ao banco de dados interno do container.
 
 b) Container de backend: golang  
 Para testar se o backend está online: http://localhost:3000/logs  
@@ -30,8 +37,8 @@ Para testar se o backend está online: http://localhost:3000/logs
 a) Baixar e instalar o GOlang na versão 1.11.5  
 b) Baixar e instalar o PostgreSQL na versão 9.6  
 c) Realizar o clone do repositório.  
-d) Mudar a configuração de acesso ao banco de dados localhost  
-e) Iniciar o banco PostgreSQL.
+d) Iniciar o banco PostgreSQL e criar um database. O nome deverá ser "log_monitor".
+e) Criar schema do banco. Vide /script/init.sql
 f) Através do Power Shell ou CMD, acessar o diretório clonado.  
 g) Iniciar o backend. Comando: go run app.go  
 

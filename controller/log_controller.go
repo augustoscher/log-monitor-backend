@@ -13,6 +13,7 @@ var logDAO = dao.LogDAO{}
 
 //AllLogsEndPoint return todos
 func AllLogsEndPoint(w http.ResponseWriter, r *http.Request) {
+	enableCors(&w)
 	logs, err := logDAO.FindAll()
 	if err != nil {
 		respondWithError(w, http.StatusInternalServerError, err.Error())
@@ -23,6 +24,7 @@ func AllLogsEndPoint(w http.ResponseWriter, r *http.Request) {
 
 //FindLogsGroupIntegracao return todos agrupando por codigo integracao
 func FindLogsGroupIntegracao(w http.ResponseWriter, r *http.Request) {
+	enableCors(&w)
 	logs, err := logDAO.FindGroupIntegracao()
 	if err != nil {
 		respondWithError(w, http.StatusInternalServerError, err.Error())
@@ -33,6 +35,7 @@ func FindLogsGroupIntegracao(w http.ResponseWriter, r *http.Request) {
 
 //FindLogsGroupFilial return todos agrupado por filial e tipo
 func FindLogsGroupFilial(w http.ResponseWriter, r *http.Request) {
+	enableCors(&w)
 	logs, err := logDAO.FindGroupFilialTipo()
 	if err != nil {
 		respondWithError(w, http.StatusInternalServerError, err.Error())
@@ -43,6 +46,7 @@ func FindLogsGroupFilial(w http.ResponseWriter, r *http.Request) {
 
 //FindLogEndpoint find a filial
 func FindLogEndpoint(w http.ResponseWriter, r *http.Request) {
+	enableCors(&w)
 	params := mux.Vars(r)
 	filial, err := logDAO.FindByID(params["id"])
 	if err != nil {
@@ -54,6 +58,7 @@ func FindLogEndpoint(w http.ResponseWriter, r *http.Request) {
 
 //CreateLogEndPoint cria novo registro
 func CreateLogEndPoint(w http.ResponseWriter, r *http.Request) {
+	enableCors(&w)
 	defer r.Body.Close()
 	var log model.LogMessage
 	if err := json.NewDecoder(r.Body).Decode(&log); err != nil {
@@ -107,3 +112,21 @@ func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
 	w.WriteHeader(code)
 	w.Write(response)
 }
+
+func enableCors(w *http.ResponseWriter) {
+	(*w).Header().Set("Access-Control-Allow-Origin", "*")
+	(*w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+}
+
+// func setupResponse(w *http.ResponseWriter, req *http.Request) {
+// 	(*w).Header().Set("Access-Control-Allow-Origin", "*")
+// 	(*w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+// 	(*w).Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+// }
+
+// func indexHandler(w http.ResponseWriter, req *http.Request) {
+// 	setupResponse(&w, req)
+// 	if (*req).Method == "OPTIONS" {
+// 		return
+// 	}
+// }
