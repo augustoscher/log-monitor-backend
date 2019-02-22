@@ -2,7 +2,9 @@ package controller
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
+	"strconv"
 
 	"bitbucket.org/augustoscher/logs-monitor-docker-postgres/dao"
 	"bitbucket.org/augustoscher/logs-monitor-docker-postgres/model"
@@ -12,9 +14,40 @@ import (
 var logDAO = dao.LogDAO{}
 
 //AllLogsEndPoint return todos
-func AllLogsEndPoint(w http.ResponseWriter, r *http.Request) {
+// func AllLogsEndPoint(w http.ResponseWriter, r *http.Request) {
+// 	enableCors(&w)
+// 	params := mux.Vars(r)
+// 	fmt.Printf("AllLogsEndPoint: %+v\r\n", params)
+// 	logs, err := logDAO.FindAll()
+// 	if err != nil {
+// 		respondWithError(w, http.StatusInternalServerError, err.Error())
+// 		return
+// 	}
+// 	respondWithJSON(w, http.StatusOK, logs)
+// }
+
+//AllLogsPageableEndPoint return todos paginado
+func AllLogsPageableEndPoint(w http.ResponseWriter, r *http.Request) {
 	enableCors(&w)
-	logs, err := logDAO.FindAll()
+	params := mux.Vars(r)
+	limit, err := strconv.Atoi(params["limit"])
+	offset, err := strconv.Atoi(params["offset"])
+
+	fmt.Printf("AllLogsPageableEndPoint: %+v\r\n", params)
+
+	logs, err := logDAO.FindAllPageable(limit, offset)
+	if err != nil {
+		respondWithError(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+	respondWithJSON(w, http.StatusOK, logs)
+}
+
+//FindLogsFilialIntegracaoEndPoint return todos filtrando por filial e codigo de integracao
+func FindLogsFilialIntegracaoEndPoint(w http.ResponseWriter, r *http.Request) {
+	enableCors(&w)
+	params := mux.Vars(r)
+	logs, err := logDAO.FindByIntegracaoFilial(params["integracao"], params["codigo"])
 	if err != nil {
 		respondWithError(w, http.StatusInternalServerError, err.Error())
 		return
@@ -64,6 +97,12 @@ func CreateLogEndPoint(w http.ResponseWriter, r *http.Request) {
 	if err := json.NewDecoder(r.Body).Decode(&log); err != nil {
 		respondWithError(w, http.StatusBadRequest, "Payload inválido")
 		return
+	}
+	if len(log.DescricaoErro) > 400 {
+		log.DescricaoErro = string(log.DescricaoErro[0:400])
+	}
+	if len(log.ConteudoMensagemErro) > 10000000 {
+		log.ConteudoMensagemErro = string(log.ConteudoMensagemErro[0:10000000])
 	}
 	if err := logDAO.Insert(log); err != nil {
 		respondWithError(w, http.StatusInternalServerError, err.Error())
@@ -116,6 +155,7 @@ func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
 func enableCors(w *http.ResponseWriter) {
 	(*w).Header().Set("Access-Control-Allow-Origin", "*")
 	(*w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+	(*w).Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
 }
 
 // func setupResponse(w *http.ResponseWriter, req *http.Request) {

@@ -9,7 +9,7 @@ create table logmessage (
 	tipo_notificacao varchar(1) not null,	
 	codigo_integracao varchar(20) not null,
 	nome_integracao varchar(150) not null,
-	descricao_erro varchar(250),
-	conteudo_mensagem_erro varchar(250),
+	descricao_erro varchar(400),
+	conteudo_mensagem_erro varchar(10485760),
     data_hora timestamp not null default current_timestamp
 )

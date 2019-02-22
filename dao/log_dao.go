@@ -9,9 +9,23 @@ type LogDAO struct {
 }
 
 //FindAll retorna todos
-func (m *LogDAO) FindAll() ([]model.LogMessage, error) {
+// func (m *LogDAO) FindAll() ([]model.LogMessage, error) {
+// 	var logsMessage []model.LogMessage
+// 	err := db.Model(&logsMessage).Order("id DESC").Select()
+// 	return logsMessage, err
+// }
+
+//FindAllPageable busca todos com paginação
+func (m *LogDAO) FindAllPageable(limit int, offset int) ([]model.LogMessage, error) {
 	var logsMessage []model.LogMessage
-	err := db.Model(&logsMessage).Order("id ASC").Select()
+	err := db.Model(&logsMessage).Order("id DESC").Limit(limit).Offset(offset).Select()
+	return logsMessage, err
+}
+
+//FindByIntegracaoFilial retorna logs agrupado por codigo integracao
+func (m *LogDAO) FindByIntegracaoFilial(integracao string, filial string) ([]model.LogMessage, error) {
+	var logsMessage []model.LogMessage
+	err := db.Model(&logsMessage).Where("codigo_integracao = ? AND codigo_filial = ?", integracao, filial).OrderExpr("data_hora DESC").Select()
 	return logsMessage, err
 }
 
