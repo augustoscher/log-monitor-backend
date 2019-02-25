@@ -1,6 +1,8 @@
 package dao
 
 import (
+	"fmt"
+
 	"bitbucket.org/augustoscher/logs-monitor-docker-postgres/model"
 )
 
@@ -8,16 +10,14 @@ import (
 type LogDAO struct {
 }
 
-//FindAll retorna todos
-// func (m *LogDAO) FindAll() ([]model.LogMessage, error) {
-// 	var logsMessage []model.LogMessage
-// 	err := db.Model(&logsMessage).Order("id DESC").Select()
-// 	return logsMessage, err
-// }
-
 //FindAllPageable busca todos com paginação
-func (m *LogDAO) FindAllPageable(limit int, offset int) ([]model.LogMessage, error) {
+func (m *LogDAO) FindAllPageable(searchTerm string, limit int, offset int) ([]model.LogMessage, error) {
 	var logsMessage []model.LogMessage
+	fmt.Printf("dao.findallpeageble: %+v", searchTerm)
+	if len(searchTerm) > 0 {
+		err := db.Model(&logsMessage).Where("nome_filial ilike ?  OR nome_integracao ilike ? ", "%"+searchTerm+"%", "%"+searchTerm+"%").Order("id DESC").Limit(limit).Offset(offset).Select()
+		return logsMessage, err
+	}
 	err := db.Model(&logsMessage).Order("id DESC").Limit(limit).Offset(offset).Select()
 	return logsMessage, err
 }

@@ -16,10 +16,11 @@ var logDAO = dao.LogDAO{}
 func AllLogsPageableEndPoint(w http.ResponseWriter, r *http.Request) {
 	enableCors(&w)
 	params := mux.Vars(r)
+	searchTerm := params["search"]
 	limit, err := strconv.Atoi(params["limit"])
 	offset, err := strconv.Atoi(params["offset"])
 
-	logs, err := logDAO.FindAllPageable(limit, offset)
+	logs, err := logDAO.FindAllPageable(searchTerm, limit, offset)
 	if err != nil {
 		respondWithError(w, http.StatusInternalServerError, err.Error())
 		return
