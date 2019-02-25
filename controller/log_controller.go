@@ -2,7 +2,6 @@ package controller
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"strconv"
 
@@ -13,27 +12,12 @@ import (
 
 var logDAO = dao.LogDAO{}
 
-//AllLogsEndPoint return todos
-// func AllLogsEndPoint(w http.ResponseWriter, r *http.Request) {
-// 	enableCors(&w)
-// 	params := mux.Vars(r)
-// 	fmt.Printf("AllLogsEndPoint: %+v\r\n", params)
-// 	logs, err := logDAO.FindAll()
-// 	if err != nil {
-// 		respondWithError(w, http.StatusInternalServerError, err.Error())
-// 		return
-// 	}
-// 	respondWithJSON(w, http.StatusOK, logs)
-// }
-
 //AllLogsPageableEndPoint return todos paginado
 func AllLogsPageableEndPoint(w http.ResponseWriter, r *http.Request) {
 	enableCors(&w)
 	params := mux.Vars(r)
 	limit, err := strconv.Atoi(params["limit"])
 	offset, err := strconv.Atoi(params["offset"])
-
-	fmt.Printf("AllLogsPageableEndPoint: %+v\r\n", params)
 
 	logs, err := logDAO.FindAllPageable(limit, offset)
 	if err != nil {
