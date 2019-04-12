@@ -10,6 +10,7 @@ b) Realizar o clone do repositório.
 c) Através do Power Shell ou CMD, acessar o diretório clonado.  
 d) Executar: docker-compose up -d  
 e) Executar comando para visualizar os logs: docker-compose logs -f -t   
+f) Ou então, tudo de uma vez: docker-compose up -d && docker-compose logs -f -t   
 
 Este processo gerará dois containers e através deles, poderemos inciar e parar as aplicações de maneira independente.  
 Para listar os containers: docker container ps ou docker container ps -a  
