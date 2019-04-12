@@ -46,7 +46,7 @@ Este processo deverá inciar a API, ficando disponível na porta 3000.
 
 ### 3- Testes
 a) GET ALL  
-http://localhost:3000/logs  
+http://localhost:3000/logs?limit=10&offset=0 
 
 b) GET BY ID  
 http://localhost:3000/logs/1  
