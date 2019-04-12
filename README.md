@@ -64,7 +64,7 @@ http://localhost:3000/logs
 	"nome_filial": "Teste",
 	"tipo_notificacao": "M",
 	"codigo_integracao": "120",
-	"nome_integracao": "NOTA_FISCAL_ERP",
+	"nome_integracao": "NOTA_FISCAL",
 	"descricao_erro": "eita",
 	"conteudo_mensagem_erro": "NPE2"
 }
