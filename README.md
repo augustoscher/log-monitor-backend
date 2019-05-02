@@ -7,7 +7,7 @@
 ### 1- Ambiente Docker
 a) Baixar e instalar a última versão do docker.  
 b) Realizar o clone do repositório.  
-c) Através do Power Shell ou CMD, acessar o diretório clonado.  
+c) Através do terminal, acessar o diretório clonado.  
 d) Executar: docker-compose up -d  
 e) Executar comando para visualizar os logs: docker-compose logs -f -t   
 f) Ou então, tudo de uma vez: docker-compose up -d && docker-compose logs -f -t   
