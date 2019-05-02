@@ -52,14 +52,15 @@ http://localhost:3000/logs?limit=10&offset=0
 b) GET BY ID  
 http://localhost:3000/logs/1  
 
-c) GET GROUPED BY INTEGRACAO
+c) GET GROUPED BY INTEGRACAO  
 http://localhost:3000/logs-group-integracao
 
-c) GET GROUPED BY FILIAL E INTEGRACAO
+c) GET GROUPED BY FILIAL E INTEGRACAO  
 http://localhost:3000/logs-group-filial
 
 d) POST  
 http://localhost:3000/logs  
+```json
 {
 	"codigo_filial": "1",
 	"nome_filial": "Teste",
@@ -69,6 +70,6 @@ http://localhost:3000/logs
 	"descricao_erro": "eita",
 	"conteudo_mensagem_erro": "NPE2"
 }
-
+```
 
 
