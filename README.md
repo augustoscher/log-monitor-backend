@@ -1,6 +1,6 @@
 # log-monitor-backend
 Golang API that's responsible for receiving logs of applications.  
-Postgres version.
+PostgreSQL version.
 
 ### Ambientes
 1) Ambiente Docker  
@@ -49,19 +49,19 @@ Este processo deverá inciar a API, ficando disponível na porta 3000.
 
 ### 3- Testes
 a) GET ALL  
-http://localhost:3000/logs?limit=10&offset=0 
+> http://localhost:3000/logs?limit=10&offset=0 
 
 b) GET BY ID  
-http://localhost:3000/logs/1  
+> http://localhost:3000/logs/1  
 
 c) GET GROUPED BY INTEGRACAO  
-http://localhost:3000/logs-group-integracao
+> http://localhost:3000/logs-group-integracao
 
 c) GET GROUPED BY FILIAL E INTEGRACAO  
-http://localhost:3000/logs-group-filial
+> http://localhost:3000/logs-group-filial
 
 d) POST  
-http://localhost:3000/logs  
+> http://localhost:3000/logs    
 ```json
 {
 	"codigo_filial": "1",
