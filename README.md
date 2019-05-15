@@ -1,4 +1,6 @@
-# logs-monitor-docker-postgre
+# log-monitor-backend
+Golang API that's responsible for receiving logs of applications.  
+Postgres version.
 
 ### Ambientes
 1) Ambiente Docker  
