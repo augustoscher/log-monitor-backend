@@ -1,4 +1,6 @@
-# logs-monitor-docker-postgre
+# log-monitor-backend
+Golang API that's responsible for receiving logs of applications.  
+PostgreSQL version.
 
 ### Ambientes
 1) Ambiente Docker  
@@ -62,13 +64,11 @@ d) POST
 http://localhost:3007/logs  
 ```json
 {
-	"codigo_filial": "1",
-	"nome_filial": "Teste",
+	"codigo_filial": "001",
+	"nome_filial": "FILIAL-001",
 	"tipo_notificacao": "M",
-	"codigo_integracao": "120",
-	"nome_integracao": "NOTA_FISCAL",
-	"descricao_erro": "eita",
-	"conteudo_mensagem_erro": "NPE2"
+	"codigo_integracao": "100",
+	"nome_integracao": "CONVERSION_PROCESSED",
 }
 ```
 
